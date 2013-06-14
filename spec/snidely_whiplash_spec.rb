@@ -19,4 +19,11 @@ describe SnidelyWhiplash do
     obj.example.to_s.should eql '{{parent.example}}'
     obj.nested.example.to_s.should eql '{{parent.nested.example}}'
   end
+  
+  # This particular example comes from a problem I ran into with haml
+  it "should not try to convert to an array" do
+    obj = SnidelyWhiplash.new
+    ary = [obj]
+    ary.flatten.should eql [obj]
+  end
 end
