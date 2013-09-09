@@ -14,6 +14,12 @@ describe SnidelyWhiplash do
     obj.nested.example.to_s.should eql '{{nested.example}}'
   end
   
+  it "should return a mustache-escaped string with html escaping disabled if the method calls include .html_safe" do
+    obj = SnidelyWhiplash.new
+    obj.example.html_safe.to_s.should eql '{{{example}}}'
+    obj.nested.example.html_safe.to_s.should eql '{{{nested.example}}}'
+  end
+  
   it "should allow the caller to specify a parent path" do
     obj = SnidelyWhiplash.new 'parent'
     obj.example.to_s.should eql '{{parent.example}}'

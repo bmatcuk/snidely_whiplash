@@ -99,7 +99,27 @@ data = {
 var user = ich.user_template(data);
 ```
 
-The `SnidelyWhiplash` constructor can take one argument which can be used to specify the parent path for properties. For example, if you had used `SnidelyWhiplash.new('user')` in the examples above, the mustache outputs would have all been in the form `user.full_name`, `user.address`, and `user.email`. Your path can contain dots for those cases when your data is very deeply nested (for example: `SnidelyWhiplash.new('result.user')` would cause output like `{{result.user.full_name}}`, etc).
+There is only one method call that SnidelyWhiplash treats as a special case and that is `html_safe`. If any of your outputs contain `html_safe`, SnidelyWhiplash will render `{{{prop}}}` which will cause mustache to disable html escaping. For example:
+
+```erb
+<span><%= user.build_menu.html_safe %></span>
+```
+
+or
+
+```haml
+%span= user.build_menu.html_safe
+```
+
+will output:
+
+```html
+<span>{{{build_menu}}}</span>
+```
+
+The `SnidelyWhiplash` constructor can take an argument which can be used to specify the parent path for properties. For example, if you had used `SnidelyWhiplash.new('user')` in the examples above, the mustache outputs would have all been in the form `user.full_name`, `user.address`, and `user.email`. Your path can contain dots for those cases when your data is very deeply nested (for example: `SnidelyWhiplash.new('result.user')` would cause output like `{{result.user.full_name}}`, etc). The default value for this argument is `nil`.
+
+You may specify a second argument to the `SnidelyWhiplash` constructor: true to enable html escaping in mustache (this is the default), or false to disable html escaping for all outputs! You probably don't want to use this though... you're probably better off just using `html_safe` for the values that need to have html escaping disabled.
 
 ## Contributing
 
