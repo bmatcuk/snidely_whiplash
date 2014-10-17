@@ -11,6 +11,7 @@ Gem::Specification.new do |gem|
   gem.description   = %q{Convert simple partial views into a mustache template.}
   gem.summary       = %q{Convert simple partial views into a mustache template.}
   gem.homepage      = "https://github.com/bmatcuk/snidely_whiplash"
+  gem.license       = "MIT"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
