@@ -32,4 +32,14 @@ describe SnidelyWhiplash do
     ary = [obj]
     ary.flatten.should eql [obj]
   end
+  
+  it "should use a specific value if one is passed in" do
+    obj = SnidelyWhiplash.new nil, true, 'test' => 42
+    obj.test.should eql 42
+  end
+  
+  it "should understand nesting when determining if there is a specific value to use" do
+    obj = SnidelyWhiplash.new nil, true, 'nested.test' => 42
+    obj.nested.test.should eql 42
+  end
 end

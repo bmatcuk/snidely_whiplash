@@ -20,7 +20,7 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -117,9 +117,13 @@ will output:
 <span>{{{build_menu}}}</span>
 ```
 
-The `SnidelyWhiplash` constructor can take an argument which can be used to specify the parent path for properties. For example, if you had used `SnidelyWhiplash.new('user')` in the examples above, the mustache outputs would have all been in the form `user.full_name`, `user.address`, and `user.email`. Your path can contain dots for those cases when your data is very deeply nested (for example: `SnidelyWhiplash.new('result.user')` would cause output like `{{result.user.full_name}}`, etc). The default value for this argument is `nil`.
+### Options
 
-You may specify a second argument to the `SnidelyWhiplash` constructor: true to enable html escaping in mustache (this is the default), or false to disable html escaping for all outputs! You probably don't want to use this though... you're probably better off just using `html_safe` for the values that need to have html escaping disabled.
+The `SnidelyWhiplash` constructor can take three arguments:
+
+1. *Parent Path:* A parent path to use for mustache code. For example, if you had used `SnidelyWhiplash.new('user')` in the examples above, the mustache outputs would have all been in the form `user.full_name`, `user.address`, and `user.email`. Your path can contain dots for those cases when your data is very deeply nested (for example: `SnidelyWhiplash.new('result.user')` would cause output like `{{result.user.full_name}}`, etc). The default value for this argument is `nil` which means "no parent path".
+2. *HTML Escape:* True to enable html escaping in mustache (this is the default), or false to disable html escaping for all outputs! You probably don't want to use this though... you're probably better off just using `html_safe` for the values that need to have html escaping disabled.
+3. *Values:* A hash of values to use for certain methods. Sometimes you don't want certain methods to output mustache code, but you'd rather have them do something server-side. This hash lets you do that. The keys of the hash correspond to the paths that SnidelyWhiplash would output normally, so nesting is possible. For example, if you wanted to use the value "Dudley Do-Right" for "model.user.name", you could use the hash: `{'user.name' => 'Dudley Do-Right'}`. The keys must be strings.
 
 ## Contributing
 
